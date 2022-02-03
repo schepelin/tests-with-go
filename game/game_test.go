@@ -6,7 +6,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// A good example of a really bad test
 func TestGame(t *testing.T) {
 	game := NewGame()
 	player := NewPlayer()
@@ -15,11 +14,10 @@ func TestGame(t *testing.T) {
 	player.Join(&game)
 	assert.True(t, player.InGame)
 
-	player.Bet(FIVE, 50)
+	player.MakeBet(FIVE, 50)
+	assert.Equal(t, 50, player.Stack)
 	roll := player.RollDie()
-	if roll != FIVE {
+	if roll == FIVE {
 		assert.Equal(t, 150, player.Stack)
-	} else {
-		assert.Equal(t, 50, player.Stack)
 	}
 }

@@ -34,7 +34,7 @@ func (p *Player) Join(g *Game) {
 	p.InGame = true
 }
 
-func (p *Player) Bet(ds DieSide, bet int) {
+func (p *Player) MakeBet(ds DieSide, bet int) {
 	p.Stack -= bet
 }
 
