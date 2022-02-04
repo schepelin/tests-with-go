@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGame(t *testing.T) {
+func Test_WhenBetWins_PlayerGetsDoubledAmount(t *testing.T) {
 	// arrange
 	game := NewGame()
 	player := NewPlayer()
