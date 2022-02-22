@@ -7,9 +7,9 @@ import (
 )
 
 type playerBuilder struct {
-	stack int
+	stack  int
 	inGame bool
-	betOn DieSide
+	betOn  DieSide
 }
 
 func (b *playerBuilder) WithStack(v int) *playerBuilder {
@@ -31,7 +31,7 @@ func (b *playerBuilder) WithBet(d DieSide, v int) *playerBuilder {
 func (b *playerBuilder) Build() *Player {
 	return &Player{
 		InGame: b.inGame,
-		Stack: b.stack,
+		Stack:  b.stack,
 	}
 }
 

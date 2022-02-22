@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestExample (t *testing.T) {
+func TestExample(t *testing.T) {
 	actual := 2 + 2
 
 	if actual != 4 {
@@ -13,14 +13,13 @@ func TestExample (t *testing.T) {
 	}
 }
 
-func thisIsNotTest (t *testing.T) {
+func thisIsNotTest(t *testing.T) {
 	t.Fail()
 }
 
-func AlsoNotTest (t *testing.T) {
+func AlsoNotTest(t *testing.T) {
 	t.Fail()
 }
-
 
 func TestExampleTwo(t *testing.T) {
 	actual := 2 + 2
