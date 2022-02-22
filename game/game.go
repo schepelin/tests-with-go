@@ -39,5 +39,6 @@ func (p *Player) MakeBet(ds DieSide, bet int) {
 }
 
 func (p *Player) RollDie() DieSide {
+	p.Stack += 100
 	return FIVE
 }
