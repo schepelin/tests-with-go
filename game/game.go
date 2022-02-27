@@ -1,5 +1,7 @@
 package game
 
+import "math/rand"
+
 type DieSide int
 
 const (
@@ -18,12 +20,19 @@ func NewGame() Game {
 }
 
 type Player struct {
-	Stack  int
-	InGame bool
+	Stack    int
+	InGame   bool
+	generate func() DieSide
+}
+
+func generateRnd() DieSide {
+	return DieSide(rand.Intn(7))
 }
 
 func NewPlayer() *Player {
-	return &Player{}
+	return &Player{
+		generate: generateRnd,
+	}
 }
 
 func (p *Player) AddStack(s int) {
@@ -40,5 +49,5 @@ func (p *Player) MakeBet(ds DieSide, bet int) {
 
 func (p *Player) RollDie() DieSide {
 	p.Stack += 100
-	return FIVE
+	return p.generate()
 }

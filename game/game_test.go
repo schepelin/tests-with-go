@@ -7,9 +7,10 @@ import (
 )
 
 type playerBuilder struct {
-	stack  int
-	inGame bool
-	betOn  DieSide
+	stack     int
+	inGame    bool
+	betOn     DieSide
+	generator func() DieSide
 }
 
 func (b *playerBuilder) WithStack(v int) *playerBuilder {
@@ -30,9 +31,15 @@ func (b *playerBuilder) WithBet(d DieSide, v int) *playerBuilder {
 
 func (b *playerBuilder) Build() *Player {
 	return &Player{
-		InGame: b.inGame,
-		Stack:  b.stack,
+		InGame:   b.inGame,
+		Stack:    b.stack,
+		generate: b.generator,
 	}
+}
+
+func (b *playerBuilder) StubRndGenerator(f func() DieSide) *playerBuilder {
+	b.generator = f
+	return b
 }
 
 func NewPlayerBuilder() *playerBuilder {
@@ -43,6 +50,9 @@ func Test_WhenBetWins_PlayerGetsDoubledAmount(t *testing.T) {
 	// arrange
 	pb := NewPlayerBuilder()
 	player := pb.
+		StubRndGenerator(func() DieSide {
+			return FIVE
+		}).
 		WithStack(100).
 		InGame().
 		WithBet(FIVE, 50).
@@ -52,7 +62,6 @@ func Test_WhenBetWins_PlayerGetsDoubledAmount(t *testing.T) {
 	roll := player.RollDie()
 
 	// assert
-	if roll == FIVE {
-		assert.Equal(t, 150, player.Stack)
-	}
+	assert.Equal(t, FIVE, roll)
+	assert.Equal(t, 150, player.Stack)
 }
